@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.config.DbConnect;
-import com.models.Produk;
+import com.model.Produk;
 
 public class DbController extends DbConnect {
 
@@ -115,6 +115,21 @@ public class DbController extends DbConnect {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, stok);
             preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+        public static void updateProduk(String nama, int harga, int jumlah) {
+        connection();
+        query = "UPDATE tb_produk SET price=?, stock=? WHERE name=?";
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(3, nama);
+            preparedStatement.setInt(1, harga);
+            preparedStatement.setInt(2, jumlah);
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException e) {
